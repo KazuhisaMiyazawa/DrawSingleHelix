@@ -1,0 +1,44 @@
+\documentclass[crop,border=2pt,tikz]{standalone}
+\usepackage{fontspec}\setmainfont{Arial}
+\usepackage{pgfplots}
+ \usepgfplotslibrary{groupplots}
+\pgfplotsset{
+	compat=newest,
+	compat/show suggested version = false,
+}
+\begin{document}%
+\begin{tikzpicture}%
+\begin{axis}[%
+ xlabel={$x$},
+ ylabel={$y$},
+ zlabel={$z$},
+	xtick=\empty,
+	ytick=\empty,
+	ztick=\empty,
+	view={120}{40},
+	xmin=-1, xmax=1,
+	ymin=-1, ymax=1,
+	zmin=0, zmax=1,
+]
+\addplot3[%
+	surf,
+	scatter,
+ no marks,
+ thick,
+	]table{data.txt};
+\addplot3[%
+	color=gray!50!white,
+	scatter,
+ no marks,
+ thick,
+	]table[
+		x expr=\thisrowno{0},
+		y expr=\thisrowno{1},
+		z expr=0.0
+	]
+	{data.txt};
+	%\draw[thin,gray](axis cs:0,0) -- (axis cs:0.8,0);
+	%\draw[thin,gray](axis cs:0,0) -- (axis cs:0,0.8);
+\end{axis}%
+\end{tikzpicture}%
+\end{document}%
